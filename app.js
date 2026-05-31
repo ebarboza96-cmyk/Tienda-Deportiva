@@ -87,6 +87,13 @@ function availSizes(id) {
   const p = prodById(id); if (!p) return [];
   return (p.sizes || []).map(s => ({ t: s.t, q: (stock[id] || {})[s.t] || 0 }));
 }
+function jerseyPrint(player) {
+  const s = String(player == null ? '' : player).trim();
+  if (!s) return '';
+  const m = s.match(/^(.*?)\s*(\d+)$/);
+  if (m) return (m[1].trim() ? m[1].trim() + ' ' : '') + '#' + m[2];
+  return s;
+}
 function today() { const d = new Date(); return d.toISOString().slice(0, 10); }
 function fmtDate(iso) { if (!iso) return ''; const [y, m, d] = iso.split('T')[0].split('-'); return `${d}/${m}/${y}`; }
 
@@ -130,12 +137,13 @@ function renderGrid() {
     card.innerHTML = `
       <div class="thumb" data-id="${p.id}">
         ${coverHtml(p)}
-        ${tot <= 0 ? '<span class="badge out">Agotado</span>' : (p.player ? `<span class="badge">${esc(p.player)}</span>` : '')}
+        ${tot <= 0 ? '<span class="badge out">Agotado</span>' : (p.player ? `<span class="badge">${esc(jerseyPrint(p.player))}</span>` : '')}
         ${nph > 1 ? `<span class="gallery-count">📷 ${nph}</span>` : ''}
       </div>
       <div class="cbody">
         <div class="cname">${esc(p.name)}</div>
         <div class="csub">
+          ${p.player ? `<span class="pill print">👕 ${esc(jerseyPrint(p.player))}</span>` : ''}
           ${p.patch ? `<span class="pill">${esc(p.patch)}</span>` : ''}
         </div>
         <div class="sizes">
@@ -174,9 +182,9 @@ function openProd(id) {
     <div class="pinfo">
       <h2>${esc(p.name)}</h2>
       <div class="csub" style="margin-bottom:10px">${categoryOf(p)}</div>
-      ${p.player ? `<div class="kv"><b>Dorsal</b> <span>${esc(p.player)}</span></div>` : ''}
+      ${p.player ? `<div class="print-lg">👕 Dice: <b>${esc(jerseyPrint(p.player))}</b></div>` : ''}
       ${p.patch ? `<div class="kv"><b>Parche</b> <span>${esc(p.patch)}</span></div>` : ''}
-      <div class="kv"><b>Tallas</b> <span class="sizes">${sizes.map(s => `<span class="sz ${s.q > 0 ? 'ok' : ''}" title="${s.q} disp.">${esc(s.t)}</span>`).join('') || 'Talla única'}</span></div>
+      <div class="kv"><b>Tallas</b> <span class="sizes">${sizes.map(s => `<span class="sz ${s.q > 0 ? 'ok' : ''}" title="${s.q} disp.">${esc(s.t)}${s.q > 0 ? `<small style="opacity:.6"> ·${s.q}</small>` : ''}</span>`).join('') || 'Talla única'}</span></div>
       <div class="price-lg">${colones(p.priceCRC)}</div>
       <div class="note">${tot > 0 ? 'Disponible' : 'Agotado por ahora'} · ${photos.length} foto${photos.length === 1 ? '' : 's'}</div>
       ${waHtml}
