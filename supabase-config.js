@@ -12,7 +12,7 @@
                 (con ese correo y tu contraseña entrás a Administración)
    ============================================================ */
 window.SUPA = {
-  url:     'https://TU_PROYECTO.supabase.co',
-  anonKey: 'TU_LLAVE_ANON',
-  email:   'TU_CORREO@ejemplo.com'
+  url:     'https://nrzdjwpnxmstfbeufbgg.supabase.co',
+  anonKey: 'sb_publishable_kLO7lbDrjQEV31pxU32UCQ_T1h5uZ-J',
+  email:   'ebarboza96@gmail.com'
 };
