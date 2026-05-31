@@ -297,9 +297,27 @@
     "qty": 30,
     "cost": 7,
     "priceCRC": 25000,
-    "photos": [],
-    "cover": null,
-    "thumbs": []
+    "photos": [
+      "img/6/1.jpg",
+      "img/6/2.jpg",
+      "img/6/3.jpg",
+      "img/6/4.jpg",
+      "img/6/5.jpg",
+      "img/6/6.jpg",
+      "img/6/7.jpg",
+      "img/6/8.jpg"
+    ],
+    "cover": "img/6/cover.webp",
+    "thumbs": [
+      "img/6/th1.webp",
+      "img/6/th2.webp",
+      "img/6/th3.webp",
+      "img/6/th4.webp",
+      "img/6/th5.webp",
+      "img/6/th6.webp",
+      "img/6/th7.webp",
+      "img/6/th8.webp"
+    ]
   },
   {
     "id": 7,
