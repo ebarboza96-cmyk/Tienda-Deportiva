@@ -31,6 +31,7 @@
     --shadow:0 1px 0 oklch(1 0 0 / .04) inset, 0 18px 40px -24px oklch(0 0 0 / .7);
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   html,body{margin:0;padding:0}
   body{
     font-family:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -59,12 +60,7 @@
   }
   .bar{max-width:1240px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
   .brand{display:flex;align-items:center;gap:11px;font-size:21px;letter-spacing:-.02em}
-  .brand .dot{
-    width:34px;height:34px;border-radius:11px;
-    background:linear-gradient(150deg,var(--gold),var(--gold2));
-    display:grid;place-items:center;color:var(--ink);font-size:18px;
-    box-shadow:0 6px 16px -8px var(--gold2);
-  }
+  .brand .logo-mark{height:42px;width:auto;filter:drop-shadow(0 4px 10px oklch(0 0 0 / .45))}
   .grow{flex:1}
   .search{flex:1;min-width:180px;max-width:520px;position:relative}
   .search input{width:100%;padding:12px 14px 12px 40px;border-radius:13px;border:1px solid var(--line);background:var(--bg2);color:var(--txt);font-size:15px;transition:border-color .15s,box-shadow .15s}
@@ -86,8 +82,43 @@
   .chip.active{background:linear-gradient(150deg,var(--gold),var(--gold2));color:var(--ink);border-color:transparent;font-weight:700}
   .count{color:var(--muted);font-size:13px;margin-left:auto}
 
+  /* Hero */
+  .hero{max-width:1240px;margin:0 auto;padding:34px 20px 6px}
+  .hero-inner{
+    position:relative;overflow:hidden;border-radius:26px;
+    border:1px solid var(--line);
+    background:
+      radial-gradient(120% 130% at 92% 10%, oklch(0.40 0.10 86 / .35), transparent 55%),
+      linear-gradient(120deg, oklch(0.24 0.03 150 / .55), oklch(0.21 0.015 84));
+    display:grid;grid-template-columns:1.25fr .9fr;align-items:center;gap:24px;
+    padding:38px 40px;box-shadow:var(--shadow);
+  }
+  .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero-copy h1{font-size:clamp(28px,4.6vw,48px);line-height:1.04;margin:0 0 14px;max-width:16ch}
+  .hero-copy h1 .hl{color:var(--gold)}
+  .hero-copy p{color:var(--muted);font-size:clamp(15px,1.6vw,17px);max-width:46ch;margin:0 0 22px}
+  .hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .hero-actions .btn{padding:13px 22px;font-size:15px}
+  .hero-stat{color:var(--muted);font-size:14px}
+  .hero-stat b{font-family:"Bricolage Grotesque",sans-serif;color:var(--txt);font-size:18px}
+  .hero-art{position:relative;display:grid;place-items:center;min-height:230px}
+  .hero-art img{position:relative;z-index:1;width:min(290px,80%);height:auto;filter:drop-shadow(0 24px 40px oklch(0 0 0 / .55))}
+  .hero-glow{position:absolute;inset:0;margin:auto;width:78%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle, oklch(0.74 0.14 90 / .42), transparent 65%);filter:blur(14px)}
+  @media(max-width:760px){
+    .hero-inner{grid-template-columns:1fr;padding:28px 24px;text-align:center}
+    .hero-copy h1,.hero-copy p{max-width:none}
+    .hero-actions{justify-content:center}
+    .hero-art{order:-1;min-height:auto}
+    .hero-art img{width:min(220px,62%)}
+  }
+
+  /* Section head */
+  .section-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin:6px 0 18px;scroll-margin-top:150px}
+  .section-head h2{font-size:26px;margin:0}
+  .section-head p{color:var(--muted);font-size:14px;margin:0}
+
   /* Catalog grid */
-  main{max-width:1240px;margin:0 auto;padding:22px 20px}
+  main{max-width:1240px;margin:0 auto;padding:18px 20px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:20px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .18s cubic-bezier(.2,.7,.3,1),border-color .18s}
   .card:hover{transform:translateY(-5px);border-color:var(--line2)}
@@ -179,7 +210,7 @@
 
 <header>
   <div class="bar">
-    <div class="brand"><span class="dot">⚽</span><span id="brandName">Tienda Deportiva</span></div>
+    <div class="brand"><img class="logo-mark" src="logo-mark.webp" alt="Complejo Deportivo Tambor" /><span id="brandName">Tienda Deportiva</span></div>
     <div class="search">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
       <input id="q" type="search" placeholder="Buscar equipo, jugador..." />
@@ -192,7 +223,28 @@
 
 <!-- CATALOGO PUBLICO -->
 <div class="catalogwrap" id="catalogwrap">
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="eyebrow">Complejo Deportivo Tambor · Costa Rica</span>
+        <h1>Camisetas que se <span class="hl">sienten</span> de primera.</h1>
+        <p>Selecciones, clubes, retro, F1 y NBA. Calidad fan premium, con tu nombre y número. Apartá la tuya por WhatsApp.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#catalogo">Ver catálogo</a>
+          <span class="hero-stat"><b id="heroCount">—</b> modelos disponibles</span>
+        </div>
+      </div>
+      <div class="hero-art">
+        <span class="hero-glow"></span>
+        <img src="logo.webp" alt="Complejo Deportivo Tambor" />
+      </div>
+    </div>
+  </section>
   <main>
+    <div class="section-head" id="catalogo">
+      <h2>Catálogo</h2>
+      <p>Tocá una camiseta para ver todas las fotos y tallas.</p>
+    </div>
     <div class="grid" id="grid"></div>
     <div class="empty hidden" id="noResults">No se encontraron camisetas con ese filtro.</div>
   </main>
@@ -247,5 +299,9 @@
 <script src="supabase-config.js"></script>
 <script src="products.js"></script>
 <script src="app.js"></script>
+<script>
+  // Cuenta de modelos en el hero (no toca la lógica de app.js)
+  try{ if(window.PRODUCTS){ document.getElementById('heroCount').textContent = window.PRODUCTS.length; } }catch(e){}
+</script>
 </body>
 </html>
